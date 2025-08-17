@@ -12,7 +12,7 @@ export default defineConfig({
 
   description: "一个基于 VitePress 的 Markdown 文档网站",
 
-  base: "/my-docs/",   // ⚠️ 这里一定要写成仓库名（前后带/）
+  base: "/my-vitepress-site/",   // ⚠️ 这里一定要写成仓库名（前后带/）
 
   themeConfig: {
     nav: [

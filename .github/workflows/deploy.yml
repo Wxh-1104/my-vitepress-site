@@ -27,7 +27,7 @@ jobs:
         run: npm ci   # 比 npm install 更干净
 
       - name: Build VitePress site
-        run: npx vitepress build docs   # 用 npx 调用本地依赖
+        run: NODE_OPTIONS="--max-old-space-size=8192" npx vitepress build docs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
