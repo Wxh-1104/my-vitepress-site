@@ -2,8 +2,8 @@ name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: ["main"]
-  workflow_dispatch:
+    branches: ["main"]   # 如果你用的是 master，就改成 master
+  workflow_dispatch:     # 允许手动触发
 
 permissions:
   contents: read
@@ -31,19 +31,15 @@ jobs:
       - name: Pre-compress assets (gzip + brotli)
         run: |
           cd docs/.vitepress/dist
-          # 生成 gzip 压缩文件
-          find . -type f -name "*.js" -o -name "*.css" -o -name "*.html" | while read f; do
-            gzip -k -9 "$f"
-          done
-          # 生成 brotli 压缩文件
-          find . -type f -name "*.js" -o -name "*.css" -o -name "*.html" | while read f; do
-            brotli -k -9 "$f"
-          done
+          # 针对 js/css/html 做 gzip 压缩
+          find . -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -exec gzip -k -9 {} \;
+          # 再做 brotli 压缩
+          find . -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -exec brotli -k -9 {} \;
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: docs/.vitepress/dist  # VitePress build 输出目录
 
   deploy:
     environment:

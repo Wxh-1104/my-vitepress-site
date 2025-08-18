@@ -8,6 +8,23 @@ export default defineConfig({
     },
   },
 
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 2000, // 单文件超过 2MB 才提示
+      brotliSize: false,           // 不计算 gzip 大小，加快构建
+      cssCodeSplit: true,          // 按页面拆分 CSS
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor'      // 第三方依赖单独打包
+            }
+          }
+        }
+      }
+    }
+  }
+
   title: "我的知识库", // 浏览器标签标题，站点标题
 
   description: "一个基于 VitePress 的 Markdown 文档网站",
