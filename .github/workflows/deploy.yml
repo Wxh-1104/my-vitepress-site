@@ -2,8 +2,8 @@ name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: ["main"]   # 如果你用的是 master，就改成 master
-  workflow_dispatch:     # 允许手动触发
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -21,18 +21,29 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm   # 缓存依赖，加快构建
 
       - name: Install dependencies
-        run: npm ci   # 比 npm install 更干净
+        run: npm ci
 
       - name: Build VitePress site
-        run: NODE_OPTIONS="--max-old-space-size=8192" npx vitepress build docs
+        run: npm run docs:build
+
+      - name: Pre-compress assets (gzip + brotli)
+        run: |
+          cd docs/.vitepress/dist
+          # 生成 gzip 压缩文件
+          find . -type f -name "*.js" -o -name "*.css" -o -name "*.html" | while read f; do
+            gzip -k -9 "$f"
+          done
+          # 生成 brotli 压缩文件
+          find . -type f -name "*.js" -o -name "*.css" -o -name "*.html" | while read f; do
+            brotli -k -9 "$f"
+          done
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist  # VitePress build 输出目录
+          path: docs/.vitepress/dist
 
   deploy:
     environment:
