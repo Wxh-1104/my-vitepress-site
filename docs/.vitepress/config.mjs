@@ -23,7 +23,7 @@ export default defineConfig({
         }
       }
     }
-  }
+  },
 
   title: "我的知识库", // 浏览器标签标题，站点标题
 
