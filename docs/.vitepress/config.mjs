@@ -10,14 +10,14 @@ export default defineConfig({
 
   vite: {
     build: {
-      chunkSizeWarningLimit: 2000, // 单文件超过 2MB 才提示
-      brotliSize: false,           // 不计算 gzip 大小，加快构建
-      cssCodeSplit: true,          // 按页面拆分 CSS
+      chunkSizeWarningLimit: 8000, // 警告阈值提高到 8MB
       rollupOptions: {
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
-              return 'vendor'      // 第三方依赖单独打包
+              if (id.includes('vue')) return 'vue'
+              if (id.includes('vitepress')) return 'vitepress'
+              return 'vendor'
             }
           }
         }
