@@ -25,13 +25,6 @@ export default withMermaid(defineConfig({ // 2. 使用 withMermaid 包裹整个�
         }
       }
     },
-    optimizeDeps: {
-      include: [
-        'vitepress/dist/client/theme-default/support/utils.js',
-        'vitepress/dist/client/theme-default/components/VPLocalSearchBox.vue',
-        'minisearch'
-      ]
-    }
   },
 
   title: "我的知识库",
@@ -39,7 +32,6 @@ export default withMermaid(defineConfig({ // 2. 使用 withMermaid 包裹整个�
   base: "/my-vitepress-site/",
 
   themeConfig: {
-    search: { provider: 'local' },
     lastUpdated: {
       text: '本页最后更新于',
       formatOptions: {
