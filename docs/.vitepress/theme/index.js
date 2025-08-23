@@ -1,6 +1,12 @@
 import DefaultTheme from 'vitepress/theme'
-import './index.css'
+import './custom.css'
+
+import { Icon } from '@iconify/vue'
 
 export default {
-  ...DefaultTheme
+  ...DefaultTheme,
+
+  enhanceApp({ app }) {
+    app.component('Icon', Icon)
+  }
 }

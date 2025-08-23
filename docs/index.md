@@ -1,75 +1,66 @@
-在 **VitePress + `vitepress-plugin-mermaid`** 配置好以后，你在 Markdown 里就可以直接写 **Mermaid 代码块**了。
+# 关于本站
 
-### 基本用法
+本站使用 VitePress 构建，托管于 GitHub Pages。
 
-在 `.md` 文件中插入：
+## 提交你的文档
+
+如果你想为本站贡献文档，可以通过向管理者发送讯息来进行。我们欢迎任何形式的贡献，包括但不限于：
+
+- 修复错误
+- 改进文档
+- 添加新内容
+
+请你继续阅读以下内容，感谢你的支持与贡献！
+
+## 文档要求
+
+请使用 Markdown 格式编写你的文档。注意：
+
+- 行内代码请使用单个反引号（`` ` ``）包裹，代码块请使用三重反引号（` ``` `）包裹。**Mermaid 代码块除外**，具体见后文。
+- 行内公式请使用美元符号（`$`）包裹，行间公式请使用双美元符号（`$$`）包裹。
+- 请确保文档结构清晰、层次分明。
+- 请使用适当的标题和子标题来组织内容，一级标题（`#`）不会在页面导航中显示，因此**请将一级标题作为整个文档的大标题使用**，或**不使用一级标题**。
+
+### 在文档中显示 Mermaid 图表
+
+[Mermaid](https://mermaid.js.org/) 是基于 JavaScript 的图表工具，可渲染 Markdown 启发的文本定义以动态创建和修改图表。
+
+若要在文档中显示 Mermaid 图表，**请使用三重反引号包裹的 Mermaid 代码块**，例如：
 
 <pre>
 ```mermaid
-graph TD
-  A[方形节点] --> B(圆角节点)
-  B --> C{条件判断}
-  C -->|Yes| D[结果1]
-  C -->|No| E[结果2]
+sequenceDiagram
+    participant 浏览器
+    participant 服务器
+    浏览器->>服务器: GET /api/data
+    服务器->>数据库: SELECT * FROM data
+    数据库-->>服务器: 返回结果
+    服务器-->>浏览器: 发送 JSON 响应
 ```
 </pre>
 
-渲染结果会自动显示成图表。
+会显示为：
 
----
+```mermaid
+sequenceDiagram
+    participant 浏览器
+    participant 服务器
+    浏览器->>服务器: GET /api/data
+    服务器->>数据库: SELECT * FROM data
+    数据库-->>服务器: 返回结果
+    服务器-->>浏览器: 发送 JSON 响应
+```
 
-### 支持的类型
+### 在文档中显示 Iconify 提供的图标
 
-Mermaid 支持多种图表，你在 Markdown 里只需要调整代码块的内容：
+本站文档支持使用 [Iconify](https://iconify.design/) 提供的图标。你可以通过以下方式在文档中插入指定图标：
 
-* **流程图（Flowchart）**
+```html
+这是一个 <Icon icon="devicon-plain:html5"/>HTML 标签。
+```
 
-  ```mermaid
-  flowchart LR
-    A --> B --> C
-  ```
+显示效果：
 
-* **时序图（Sequence Diagram）**
+> 这是一个 <Icon icon="devicon-plain:html5"/>HTML 标签。
 
-  ```mermaid
-  sequenceDiagram
-    Alice->>Bob: Hello Bob
-    Bob-->>Alice: Hi Alice
-  ```
-
-* **甘特图（Gantt）**
-
-  ```mermaid
-  gantt
-    dateFormat  YYYY-MM-DD
-    title       项目进度
-    section 开发
-    设计       :a1, 2024-08-01, 7d
-    编码       :after a1, 14d
-  ```
-
-* **类图（Class Diagram）**
-
-  ```mermaid
-  classDiagram
-    class Animal {
-      +String name
-      +makeSound()
-    }
-    class Dog {
-      +bark()
-    }
-    Animal <|-- Dog
-  ```
-
----
-
-### 注意事项
-
-1. **必须是代码块写法**，语言标识是 `mermaid`。
-2. 如果你的图很大，可以在 VitePress 的样式里加自定义 CSS，让图表宽度自适应。
-3. GitHub Pages 部署时会一起构建，所以不需要额外配置。
-
----
-
-要不要我帮你写一个 **完整的示例 `docs/index.md`**，里面包含 **公式 + Mermaid 流程图 + 目录嵌套**，你可以直接本地跑起来？
+注意：由于本站支持明亮/黑暗主题切换，为确保可视性，**请使用单色图标而不是彩色图标**。
