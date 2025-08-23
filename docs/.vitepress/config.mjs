@@ -25,6 +25,13 @@ export default withMermaid(defineConfig({ // 2. 使用 withMermaid 包裹整个�
         }
       }
     },
+    optimizeDeps: {
+      include: [
+        'vitepress/dist/client/theme-default/support/utils.js',
+        'vitepress/dist/client/theme-default/components/VPLocalSearchBox.vue',
+        'minisearch'
+      ]
+    }
   },
 
   title: "我的知识库",
